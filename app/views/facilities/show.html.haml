@@ -1,0 +1,42 @@
+.base
+  %h4 Scheduling control for
+  %h4
+    = @facility.name
+    %br
+    - if @facility.timelists[0].nil?
+      = form_tag building_facility_timelists_path(@building, @facility), {method: :post} do
+        = label_tag 'Opening time'
+        = select_tag 'start_time', options_for_select(Timelist.start_end)
+        = label_tag 'Closing time'
+        = select_tag 'end_time', options_for_select(Timelist.start_end)
+        = label_tag 'Interval in minutes'
+        = select_tag 'gap', options_for_select(Timelist.minutes_gap)
+        = submit_tag "Set opening and closing time", class: 'round button'
+    - else
+      current timeslots
+      %br
+
+      - @facility.timelists.order(:created_at).each do |timeslot|
+        = timeslot.time.strftime("%H:%M:%S")
+        %br
+      = link_to "Update timelist", building_facility_timelist_path(@building, params[:id], 3), method: :delete, class: 'round button'
+    %br
+    - if @facility.timeslots[0].nil?
+      = form_tag building_facility_timeslots_path(@building, @facility), {method: :post} do
+        = label_tag 'Start time'
+        = select_tag 'start_time', options_for_select(Facility.start_time),id: 'stime'
+        = label_tag 'Number of time slot'
+        = select_tag 'time_slot', options_for_select(Facility.time_slot)
+        = label_tag 'Number of hours'
+        = select_tag 'hours', options_for_select(Facility.hours)
+        = submit_tag "Set schedule", class: 'round button'
+    - else
+      current schedule
+      %br
+
+      - @facility.timeslots.order(:created_at).each do |timeslot|
+        = timeslot.start_time
+        -
+        = timeslot.end_time
+        %br
+      = link_to "Update timeslots", building_facility_timeslot_path(@building, params[:id], 3), method: :delete, class: 'round button'

@@ -1,0 +1,9 @@
+- @users.each do |user|
+  %br/
+  = user.first_name
+  %br/
+  = user.last_name
+  %br/
+  = user.email
+  %br/
+  = link_to "Delete", "/user/#{user.id}", method: :delete, class: 'button tiny alert'

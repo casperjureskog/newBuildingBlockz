@@ -1,0 +1,13 @@
+.base
+  %h2 Editing #{@news.title}
+  = form_for [@buildings, @news] do |f|
+    .field
+      = f.label :title
+      %br/
+      = f.text_field :title, value: @news.title
+    .field
+      = f.label :description
+      %br/
+      = f.text_area :description, value: @news.description
+    .actions
+      = f.submit "Submit", class: 'round button'

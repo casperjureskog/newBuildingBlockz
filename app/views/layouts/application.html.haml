@@ -1,0 +1,70 @@
+!!! 5
+%html{ :lang => "en" }
+  %head
+
+    %link{:href => "https://fonts.googleapis.com/css?family=Julius+Sans+One|Open+Sans+Condensed:300", :rel => "stylesheet"}/
+
+    %meta{ :charset => "utf-8" }
+
+    %meta{ :name => "viewport", :content => "width=device-width, initial-scale=1.0" }
+
+    %title= content_for?(:title) ? yield(:title) : "Build blockz"
+
+    = stylesheet_link_tag "application"
+    = javascript_include_tag "application", "vendor/modernizr" , "data-turbolinks-track" => true
+    = csrf_meta_tag
+  %body
+    %table{:style => "background-color: #585858; border:none !important;"}
+      %tr{style: "background-color: #585858;"}
+        %td{style: "width: 15%;"}
+          .change_building
+            - if @building_name
+              %h5{class: "building_name_style"}
+                Building:
+                = @building_name.name
+              = form_tag select_building_path, method: 'post' do |f|
+                =select('post', "category", @buildings.distinct.pluck(:name) {|p| [ p.name , p.id ] }, {prompt: 'Change building'})
+                = submit_tag 'Change', class: 'button secondary tiny'
+        %td
+          .head
+            = image_tag('logo4.png',  size: "650x100")
+
+            = link_to 'Sign Out', destroy_user_session_path, {method: :delete}
+
+      %tr
+        %td.align-top{:style => "width: 15%; background-color: #585858; border:none !important;"}
+          - if session[:current_building_id]
+            - if current_user
+              - if current_user.role == 'janitor'
+                Janitor
+                = link_to 'Sign Out', destroy_user_session_path, {method: :delete}
+              - else
+                %div
+                  %ul
+                    %li
+                      = link_to 'Home', root_path
+                    %li
+                      = link_to 'Help requests', building_help_requests_path(session[:current_building_id])
+                    %li
+                      = link_to 'Facilities', building_facilities_path(session[:current_building_id])
+                    %li
+                      = link_to 'News', building_news_index_path(session[:current_building_id])
+                    %li
+                      = link_to 'Add building', new_building_path
+                    %li
+                      = link_to 'New Work order', new_building_workorder_path(session[:current_building_id])
+                    %li
+                      = link_to 'invite new user', new_user_path
+                    %li
+                      = link_to 'Sign Out', destroy_user_session_path, {method: :delete}
+                    - if current_user == nil
+                      %li
+                        = link_to 'Sign up', new_user_registration_path
+        %td{style: "width: 85%; height: 830px; background-color: #585858;", :valign => "top"}
+          .body
+            .alert= alert
+            - if flash[:notice]
+              .notice= flash[:notice]
+          = yield
+          .footer
+            BuildingBlockz inc&nbsp&nbsp

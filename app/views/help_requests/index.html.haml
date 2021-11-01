@@ -1,0 +1,17 @@
+.head
+  %h3 Help request messages
+  .row
+    - @help_requests.each do |help|
+      .large-4.medium-4.columns
+        .card
+          .card-divider
+            - if help.urgent == true
+              .stat_urgent
+            %h5
+              =help.title
+          .card-section
+            = help.message
+            %br
+            %br
+            = link_to "Create work order", new_building_workorder_path(session[:current_building_id], help.id), class: 'button tiny inc'
+            = link_to "Delete", "/buildings/#{session[:current_building_id]}/help_requests/#{help.id})", method: :delete, class: 'button tiny alert'

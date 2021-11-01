@@ -1,0 +1,33 @@
+.base
+  %h3 Listing bookings
+
+
+  %br
+  .row
+    = month_calendar events: @bookings do |date, bookings|
+      = link_to new_building_facility_booking_path(@building, @facility, date: date) do
+        %div
+          = date.strftime('%d')
+          - bookings.each do |booking|
+            .cal
+              = booking.name
+              = booking.start_time.strftime('%H:%M')
+.row
+  .div
+    %table
+      %thead
+        %tr
+          %th Name
+          %th Start time
+          %th End time
+          %th
+          %th
+
+      %tbody
+        - @bookings.each do |booking|
+          %tr
+            %td= booking.name
+            %td= booking.start_time
+            %td= booking.end_time
+            %td= link_to 'Show', building_facility_booking_path(@building, @facility, booking), class: 'button tiny inc'
+            %td= link_to 'Destroy', building_facility_booking_path(@building, @facility, booking), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button tiny inc'
