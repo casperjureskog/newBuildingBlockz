@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @booking.name
+%p
+  %b Start time:
+  = @booking.start_time
+%p
+  %b End time:
+  = @booking.end_time
+
+= link_to 'Edit', edit_building_facility_booking_path(@building, @facility, @booking), class: 'round button'
+\|
+= link_to 'Back', building_facility_bookings_path(@building,@facility), class: 'round button'

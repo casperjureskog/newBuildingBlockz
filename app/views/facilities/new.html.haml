@@ -1,0 +1,29 @@
+.base
+  %h3 Create a new facility
+  %table
+    %tr
+      %th
+        = form_for ([@building, @facility]) do |f|
+          .field
+            = f.text_field :name
+          .field
+            = f.text_area :description
+          .field
+            = f.text_field :rules
+          .field
+            = f.check_box(:status, {}, true, false)
+          .field
+            = f.label 'Dynamiska bookning'
+            = f.select :dyntime, ['on', 'off']
+          .field
+            = f.label "Ad time limit to the booking"
+            %br/
+            %br/
+            = f.select :bok_dur, ['1','2','3','4','5','365']
+          .field
+            = f.label "Max nummber off bookings"
+            %br/
+            %br/
+            = f.select :bok_day, ['1','2','3','4','5','6']
+          .actions
+            = f.submit "Submit", class: 'button inc'

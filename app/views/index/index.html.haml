@@ -1,0 +1,59 @@
+%table
+  %tr
+    %th
+      %h5 Urgent Help requests
+    %th
+      %h5 Latest News
+    %th
+      %h5 Bookings in Procent
+  %tr
+    %th
+      - @help_requests.each do |help|
+        .card
+          .card-divider
+            - if help.urgent == true
+              .stat_red
+            - if help.workorder_id == nil
+              .create-button
+                - if session[:current_building_id]
+                  = link_to 'Create work order' , new_building_workorder_path(session[:current_building_id], help.id), class: 'button secondary tiny'
+            = help.title
+          .card-section
+            = help.name
+            %p
+              = help.message
+      .card
+        .card-divider
+          Total Stats
+        .card-section(style='background-color: #585858;')
+          .total_count
+            = image_tag('total_graf.png',  size: "650x100")
+            .arrow(style=" -ms-transform: rotate(#{@total_value}deg); -webkit-transform: rotate(#{@total_value}deg); transform: rotate(#{@total_value}deg);")
+              = image_tag('total_arrow.png',  size: "300x40")
+          
+    %br
+    %th
+      - @news.each do |news|
+        .card
+          .card-divider
+            = news.title
+          .card-section
+            = news.description
+
+    %th
+      - @facility_stat.each do |facility|
+        .card
+          .card-divider
+            = facility['name']
+          .card-section(style='background-color: #585858;')
+            %table(style='border: 1px solid #dddddd;')
+              %tr
+                - facility['days'].each do |date, stats|
+                  %th.some(style='height: 100px; vertical-align: bottom; padding-bottom: 0px; width: 14%;')
+                    %div.some(style="height: #{stats}px; background-color: #23c1a0; width: 90%;")
+              %tr
+                - facility['days'].each do |date, stats|
+                  %th.help(style='width: 14%; align: center;')
+                    %div(style='align: center;')
+                      %p
+                        = date.to_date.strftime('%b %d')

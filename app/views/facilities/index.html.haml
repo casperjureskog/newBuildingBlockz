@@ -1,0 +1,20 @@
+.base
+  %h3 Facilities
+  %br
+  .center
+    = link_to 'New Facility', new_building_facility_path(@building), class: 'button inc'
+  .row
+    %br
+    - @facilities.each do | facility |
+      .large-4.medium-4.columns
+        .card
+          .card-divider
+            = facility.name
+          .card-section
+            = facility.description
+            %br
+            %br
+            = link_to "Manage timeslots", building_facility_path(@building, facility.id), class: 'button tiny inc'
+            = link_to "Manage facility", edit_building_facility_path(@building, facility.id), class: 'button tiny inc'
+            = link_to 'Manage bookings', building_facility_bookings_path(@building,facility.id), class: 'button tiny inc'
+            = link_to "Delete", "/buildings/#{session[:current_building_id]}/facilities/#{facility.id}", method: :delete, class: 'button tiny alert'

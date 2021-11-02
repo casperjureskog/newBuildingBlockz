@@ -1,0 +1,7 @@
+.base
+  %h3 Create a new building
+  = form_for (@building) do |f|
+    .field
+      = f.text_field :name
+    .actions
+      = f.submit "Create", class: 'round button'

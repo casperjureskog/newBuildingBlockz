@@ -1,0 +1,18 @@
+.base
+  %h3 News
+  .center
+    = link_to "Create news", new_building_news_path(session[:current_building_id]), class: 'button inc'
+  %br
+  %br
+  .row
+    - @news.each do |news|
+      .large-4.medium-4.columns
+        .card
+          .card
+            .card-divider
+              = news.title
+            .card-section
+              .text{:style => "overflow-y:scroll; overflow-x:hidden; height:100px;"}
+                = news.description
+              = link_to "Update", "/buildings/#{session[:current_building_id]}/news/#{news.id}/edit", method: :get, class: 'button tiny inc'
+              = link_to "Delete", "/buildings/#{session[:current_building_id]}/news/#{news.id})", method: :delete, class: 'button tiny alert'
