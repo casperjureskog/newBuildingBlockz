@@ -94,7 +94,6 @@ This form is being used to send work order to the janitor.
 <img src = "https://github.com/jocontreras/building_blocks_back_end/blob/update_readme/app/assets/images/send_work_order.png" />
 <br>
 
-
 ## Deployment
 * [Heroku](https://building-blockz.herokuapp.com/) - to deploy, manage, and scale modern apps
 * [Semaphore](https://semaphoreci.com/craftacademy/building_blocks_back_end) - for  continuous integration
