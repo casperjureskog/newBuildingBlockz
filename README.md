@@ -9,6 +9,7 @@ Building Blocks backend is the last project for CraftAcademy Cohort (Feb-April 2
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for deployment and testing purposes.  See deployment for notes on how to deploy the project on a live system.
 
+
 In order to organize the features needed for our project and track our progress, we used different tools such as:
 
 **Pivotal Tracker**
