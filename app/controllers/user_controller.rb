@@ -16,7 +16,7 @@ class UserController < ApplicationController
     @user.building_id = session[:current_building_id]
     if @user.save
       flash[:notice] = "New user created!"
-      UserMailer.welcome_email(@user).deliver
+    #   UserMailer.welcome_email(@user).deliver
       redirect_to root_path
     end
   end
